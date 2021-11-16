@@ -4,6 +4,7 @@
 
 
 import logging
+from os import link
 from typing import Text
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, message
 from telegram.ext import (
@@ -28,13 +29,13 @@ FIRST, SECOND = range(2)
 VOLVER = range(1)
 CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES, CONTACTO = range(5)
 ACCESO, RECUPERACION, MODIFICACION,CERRAR = range(4)
-AUTYCONS = range(1)
+AUTYCONS,CONSDIR,CONSAUT,DISP,ERRADV,ANUL,COMENT,IMG = range(8)
 
 def start(update: Update, context: CallbackContext) -> int:
     """Mensaje de inicio al ejecutar el comando `/start`."""
     # Get user that sent /start and log his name
     user = update.message.from_user
-    logger.info("User %s started the conversation.", user.first_name)
+    logger.info("Usuario %s ha iniciado una conversación.", user.first_name)
     # Build InlineKeyboard where each button has a displayed text
     # and a string as callback_data
     # The keyboard is a list of button rows, where each row is in turn
@@ -97,9 +98,13 @@ def AUTORIZACIONES(update: Update, context: CallbackContext) -> int:
     query.answer()
     keyboard = [
             [InlineKeyboardButton("Autorizaciones y Consumo Simultaneo", callback_data=str(AUTYCONS))],
-            [InlineKeyboardButton("Recuperación de contraseña", callback_data=str(RECUPERACION))],
-            [InlineKeyboardButton("Modificación de contraseña", callback_data=str(MODIFICACION))],
-            [InlineKeyboardButton("Cerrar sesión", callback_data=str(CERRAR))],
+            [InlineKeyboardButton("Consumo directo de Autorización Previa", callback_data=str(CONSDIR))],
+            [InlineKeyboardButton("Consumo de Autorización Previa", callback_data=str(CONSAUT))],
+            [InlineKeyboardButton("Carga de disposiciones en Autorización", callback_data=str(DISP))],
+            [InlineKeyboardButton("Errores y advertencias", callback_data=str(ERRADV))],
+            [InlineKeyboardButton("Anulación de autorizaciones", callback_data=str(ANUL))],
+            [InlineKeyboardButton("Ver o Adjuntar Comentarios", callback_data=str(COMENT))],
+            [InlineKeyboardButton("Adjuntar imágenes", callback_data=str(IMG))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -114,10 +119,10 @@ def INTERNACIONES(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton("Acceso al sistema", callback_data=str(ACCESO))],
-            [InlineKeyboardButton("Recuperación de contraseña", callback_data=str(RECUPERACION))],
-            [InlineKeyboardButton("Modificación de contraseña", callback_data=str(MODIFICACION))],
-            [InlineKeyboardButton("Cerrar sesión", callback_data=str(CERRAR))],
+            [InlineKeyboardButton("Orden de internación", callback_data=str(ACCESO))],
+            [InlineKeyboardButton("Autorizaciones en estado de internación", callback_data=str(RECUPERACION))],
+            [InlineKeyboardButton("Modificación de Órdenes de Internación", callback_data=str(MODIFICACION))],
+            [InlineKeyboardButton("Emisión de una Orden de Internación", callback_data=str(CERRAR))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -131,10 +136,9 @@ def PLANES(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton("Acceso al sistema", callback_data=str(ACCESO))],
-            [InlineKeyboardButton("Recuperación de contraseña", callback_data=str(RECUPERACION))],
-            [InlineKeyboardButton("Modificación de contraseña", callback_data=str(MODIFICACION))],
-            [InlineKeyboardButton("Cerrar sesión", callback_data=str(CERRAR))],
+            [InlineKeyboardButton(text="Requisitos",
+               url="http://ipsst.gov.ar/departamento-de-programas-de-gestion-racional-de-medicamentos/planes-especiales/requisitos-para-planes-y-programas-especiales/" ,
+                callback_data=str(ACCESO))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -156,6 +160,10 @@ def CONTACTO(update: Update, context: CallbackContext) -> int:
     )
     return FIRST
 
+    """CUENTA"""
+
+    """"OTRACOSA"""
+
 def AUTYCONS(update: Update, context: CallbackContext) -> int:
     """Menu de cuenta de Usuario"""
     query = update.callback_query
@@ -176,7 +184,7 @@ def AUTYCONS(update: Update, context: CallbackContext) -> int:
             "En modalidad elija  “Autorización y Consumo Simultáneo” y cliquee el signo +. Deberá ingresar el CUIL del afiliado, si no lo conoce, "
             "haga click en la flecha de color celeste donde podrá buscarlo con el DNI y seleccionarlo. Elija la cobertura por la que se realizarán las prestaciones."
             " Indique la fecha de prescripción. Complete matrícula de prescriptor y código de diagnóstico en caso de corresponder."
-            "Cargue el código de práctica, cantidad y cliquee el Signo + (realice esto tantas veces como prácticas necesite cargar). Confirme. "
+            " Cargue el código de práctica, cantidad y cliquee el Signo + (realice esto tantas veces como prácticas necesite cargar). Confirme. "
             "Consulte el estado de la autorización, y el número correspondiente del consumo realizado en el extremo superior derecho.",
         reply_markup=reply_markup
     )
@@ -215,8 +223,13 @@ def main() -> None:
                 CallbackQueryHandler(VOLVER, pattern='^' + str(VOLVER) + '$'),
                 CallbackQueryHandler(INTERNACIONES, pattern='^' + str(INTERNACIONES) + '$'),
                 CallbackQueryHandler(PLANES, pattern='^' + str(PLANES) + '$'),
-                CallbackQueryHandler(AUTYCONS, pattern='^' + str(AUTYCONS) + '$'),
-                 CallbackQueryHandler(CONTACTO, pattern='^' + str(CONTACTO) + '$'),
+                CallbackQueryHandler(CONSDIR, pattern='^' + str(CONSDIR) + '$'),
+                CallbackQueryHandler(CONSAUT, pattern='^' + str(CONSAUT) + '$'),
+                CallbackQueryHandler(DISP, pattern='^' + str(DISP) + '$'),
+                CallbackQueryHandler(ERRADV, pattern='^' + str(ERRADV) + '$'),
+                CallbackQueryHandler(ANUL, pattern='^' + str(ANUL) + '$'),
+                CallbackQueryHandler(COMENT, pattern='^' + str(COMENT) + '$'),
+                CallbackQueryHandler(IMG, pattern='^' + str(IMG) + '$'),
             ],
             SECOND: [
                 CallbackQueryHandler(VOLVER, pattern='^' + str(CUENTA) + '$'),
