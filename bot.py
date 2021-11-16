@@ -30,6 +30,7 @@ VOLVER = range(1)
 CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES, CONTACTO = range(5)
 ACCESO, RECUPERACION, MODIFICACION,CERRAR = range(4)
 AUTYCONS,CONSDIR,CONSAUT,DISP,ERRADV,ANUL,COMENT,IMG = range(8)
+INT,AUTINT,MODINT,EMINT = range(4)
 
 def start(update: Update, context: CallbackContext) -> int:
     """Mensaje de inicio al ejecutar el comando `/start`."""
@@ -119,15 +120,15 @@ def INTERNACIONES(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton("Orden de internación", callback_data=str(ACCESO))],
-            [InlineKeyboardButton("Autorizaciones en estado de internación", callback_data=str(RECUPERACION))],
-            [InlineKeyboardButton("Modificación de Órdenes de Internación", callback_data=str(MODIFICACION))],
-            [InlineKeyboardButton("Emisión de una Orden de Internación", callback_data=str(CERRAR))],
+            [InlineKeyboardButton("Orden de internación", callback_data=str(INT))],
+            [InlineKeyboardButton("Autorizaciones en estado de internación", callback_data=str(AUTINT))],
+            [InlineKeyboardButton("Modificación de Órdenes de Internación", callback_data=str(MODINT))],
+            [InlineKeyboardButton("Emisión de una Orden de Internación", callback_data=str(EMINT))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        text="INTERNACIONES", reply_markup=reply_markup
+        text="Internaciones", reply_markup=reply_markup
     )
     return FIRST
 
@@ -138,7 +139,7 @@ def PLANES(update: Update, context: CallbackContext) -> int:
     keyboard = [
             [InlineKeyboardButton(text="Requisitos",
                url="http://ipsst.gov.ar/departamento-de-programas-de-gestion-racional-de-medicamentos/planes-especiales/requisitos-para-planes-y-programas-especiales/" ,
-                callback_data=str(ACCESO))],
+               )],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -156,13 +157,118 @@ def CONTACTO(update: Update, context: CallbackContext) -> int:
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        text="Mesa de Ayuda: 4507899", reply_markup=reply_markup
+        text="Mesa de Ayuda"
+                "                                                       Telefonos:"
+                "                                       0800-122-4777"
+                "                                       0800-888-4777", reply_markup=reply_markup
     )
     return FIRST
 
     """CUENTA"""
 
+def ACCESO(update: Update, context: CallbackContext) -> int:
+    """Acceso a cuenta"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=-9rCEC1zs2s&t=5s",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para acceder al sistema de autorización en línea. " 
+            "Debe ingresar a validaciones.ipsst.gov.ar o a  ipsst.gov.ar / Botón Prestadores Médicos / Acceso al sistema. "
+            "Complete los datos con su usuario y contraseña, haga click en Ingresar. "
+            "Si es la primera vez que accede al sistema,  será necesario que personalice su contraseña. "
+            "Ingresando la clave otorgada por el IPSST y luego la  que usted elija.  Por último, haga click en confirmar. ",
+        reply_markup=reply_markup
+    )
+    return FIRST
+
+def RECUPERACION(update: Update, context: CallbackContext) -> int:
+    """Acceso a cuenta"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=8xz_Mtogv0s",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para recuperar su contraseña,  Haga click en la  opción - “olvidó su contraseña”. "
+            "Ingrese su usuario o el correo electrónico asociado y haga click en confirmar. "
+            "Recibirá en su correo electrónico una nueva clave provisoria para ingresar y luego podrá modificarla."
+,
+        reply_markup=reply_markup
+    )
+    return FIRST
+
+def MODIFICACION(update: Update, context: CallbackContext) -> int:
+    """Modificacion"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=0VrlmvJDYBQ",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Una vez que ingresó al Sistema de Validaciones, si desea modificar su contraseña deberá: " 
+            "Hacer click en la barra azul ubicada en el borde superior derecho de la pantalla. "
+            "A continuación, elija la opción “modificar contraseña” representada con la imagen de 2 llaves. "
+            "Luego, ingrese su contraseña actual y la nueva en los dos casilleros siguientes y hace click en confirmar."
+
+,
+        reply_markup=reply_markup
+    )
+    return FIRST    
+
+def CERRAR(update: Update, context: CallbackContext) -> int:
+    """Cerrar"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=2qlBg3EzZv4",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para cerrar sesión: "
+            "Haga click en la barra de color azul ubicada en el borde superior derecho, seleccione el botón de color rojo ´´terminar sesión del usuario actual´´. "
+            "Recuerde que la sesión caducará automáticamente cuando el sistema permanezca sin ser utilizado durante mucho tiempo."
+,
+        reply_markup=reply_markup
+    )
+    return FIRST     
+
     """"OTRACOSA"""
+
+
+    """"Autorizaciones"""
 
 def AUTYCONS(update: Update, context: CallbackContext) -> int:
     """Menu de cuenta de Usuario"""
@@ -172,7 +278,7 @@ def AUTYCONS(update: Update, context: CallbackContext) -> int:
             [InlineKeyboardButton(
             text="Video instructivo",
             url="https://www.youtube.com/watch?v=PYRVOZIfwyk&list=PLNcDLjB25GHvvpEyf1a7f_eLzuiirOV7v&index=4",
-            callback_data=str(AUTYCONS))],
+            )],
             [InlineKeyboardButton(
             text="Contacto",
             callback_data=str(CONTACTO))],
@@ -219,17 +325,26 @@ def main() -> None:
         states={
             FIRST: [
                 CallbackQueryHandler(CUENTA, pattern='^' + str(CUENTA) + '$'),
+                CallbackQueryHandler(ACCESO, pattern='^' + str(ACCESO) + '$'),
+                CallbackQueryHandler(RECUPERACION, pattern='^' + str(RECUPERACION) + '$'),
+                CallbackQueryHandler(MODIFICACION, pattern='^' + str(MODIFICACION) + '$'),
+                CallbackQueryHandler(CERRAR, pattern='^' + str(CERRAR) + '$'),
                 CallbackQueryHandler(AUTORIZACIONES, pattern='^' + str(AUTORIZACIONES) + '$'),
                 CallbackQueryHandler(VOLVER, pattern='^' + str(VOLVER) + '$'),
                 CallbackQueryHandler(INTERNACIONES, pattern='^' + str(INTERNACIONES) + '$'),
                 CallbackQueryHandler(PLANES, pattern='^' + str(PLANES) + '$'),
+                CallbackQueryHandler(CONTACTO, pattern='^' + str(CONTACTO) + '$'),
+                CallbackQueryHandler(AUTYCONS, pattern='^' + str(AUTYCONS) + '$'),
                 CallbackQueryHandler(CONSDIR, pattern='^' + str(CONSDIR) + '$'),
                 CallbackQueryHandler(CONSAUT, pattern='^' + str(CONSAUT) + '$'),
                 CallbackQueryHandler(DISP, pattern='^' + str(DISP) + '$'),
                 CallbackQueryHandler(ERRADV, pattern='^' + str(ERRADV) + '$'),
                 CallbackQueryHandler(ANUL, pattern='^' + str(ANUL) + '$'),
                 CallbackQueryHandler(COMENT, pattern='^' + str(COMENT) + '$'),
-                CallbackQueryHandler(IMG, pattern='^' + str(IMG) + '$'),
+                CallbackQueryHandler(INT, pattern='^' + str(INT) + '$'),
+                CallbackQueryHandler(AUTINT, pattern='^' + str(AUTINT) + '$'),
+                CallbackQueryHandler(MODINT, pattern='^' + str(MODINT) + '$'),
+                CallbackQueryHandler(EMINT, pattern='^' + str(EMINT) + '$'),
             ],
             SECOND: [
                 CallbackQueryHandler(VOLVER, pattern='^' + str(CUENTA) + '$'),
