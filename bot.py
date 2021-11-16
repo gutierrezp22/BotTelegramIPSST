@@ -265,9 +265,6 @@ def CERRAR(update: Update, context: CallbackContext) -> int:
     )
     return FIRST     
 
-    """"OTRACOSA"""
-
-
     """"Autorizaciones"""
 
 def AUTYCONS(update: Update, context: CallbackContext) -> int:
@@ -295,6 +292,183 @@ def AUTYCONS(update: Update, context: CallbackContext) -> int:
         reply_markup=reply_markup
     )
     return FIRST
+
+def CONSDIR(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=S2yp0UDPttk",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para registrar un consumo: "
+            "Coloque en la pantalla principal el Nº de autorización previa y seleccione “Buscar”. "
+            "Una vez identificada, seleccione el botón verde. "
+            "Ingrese las cantidades a consumir de cada práctica y confirme. "
+            "Luego ingrese la matrícula del profesional efector y haga click en Confirmar. "
+            "Consulte el estado de la autorización, y el número correspondiente del consumo realizado en el extremo superior derecho. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST    
+
+def CONSAUT(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=BrApCXjLag0",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text= "Una vez que ingreso al sistema hacer clic en autorizaciones online, elegir autorizaciones y luego seleccionar autorizaciones en prestador. En la siguiente pantalla en modalidad elegir “Consumo de Autorización Previa” y hacer clic en el signo +. "
+            "En la siguiente pantalla en número de autorización ingresar en el primer cuadro número 1 para los bonos nuevos y número 2 para las órdenes de consulta celestes impresas  y a continuación el número de orden. Ingresar el número de cuil del afiliado y hacer clic en confirmar. "
+            "A continuación, se abrirá una ventana donde deberá solamente incluir número de matrícula profesional efector,  código de práctica y cantidad, luego hacer clic en el signo + y hacer clic en confirmar.  Consulte el estado de la autorización, y el número correspondiente del consumo realizado en el extremo superior derecho."
+
+,
+        reply_markup=reply_markup
+    )
+    return FIRST        
+
+def DISP(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=oy8As0yl_Es",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para cargar una autorización vinculada a una disposición, deberá para cada práctica,presionar el icono de la lupa y luego presionar la flecha en Beneficio de Excepción, donde se visualizarán las Disposiciones asociadas a la Práctica y el afiliado. "
+            "Seleccione la disposición correspondiente. Agregue la práctica con el signo + y confirme. "
+            "Se debe verificar los errores y detalles en el lado derecho de la pantalla, el estado de la autorización y el número de la misma."
+,
+        reply_markup=reply_markup
+    )
+    return FIRST       
+
+def ERRADV(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=vlQYAvk9ksc",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Una vez cargada la autorización, se deben verificar los mensajes y el estado final de la autorización."
+            "Una vez confirmada la carga, debe corroborar si existen o no los mensajes en el margen derecho de la pantalla. "
+            "Cualquiera sea el caso, se describe el motivo del mismo y pueden relacionarse con los datos del afiliado, fechas, entidad o prácticas. En la parte superior derecha se pueden ver los errores a nivel cabecera y en la inferior los errores a nivel práctica. "
+            "Existen 3 tipos de mensajes:                            "
+            "               Mensajes de advertencia: (signo de exclamación de color amarillo) No impiden la carga de la autorización, son solo advertencias sobre falta de datos o errores  detectados.                            "
+            "                         Mensajes de diferimiento: (reloj) Significa que requiere de auditoría previa. "
+            "                      Errores insalvables (signo de exclamación de color rojo): Indica que no podrá registrar la autorización hasta que no solucione el motivo del error."
+            ,
+        reply_markup=reply_markup
+    )
+    return FIRST           
+
+def ANUL(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=AMn4xW9mbyQ",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para proceder con la anulación de una autorización, debemos buscar la misma en la pantalla de autorizaciones, una vez visualizada, debemos seleccionar el botón anular ( con la cruz roja). Luego surgirá un prompt para confirmar la anulación de la autorización.  Luego de aceptar, la autorización desaparece del listado definitivamente."  ,
+        reply_markup=reply_markup
+    )
+    return FIRST         
+
+
+def COMENT(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=WyjXkN-J3ms&t=17s",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para ver o adjuntar comentarios a una Autorización deberá identificarla y visualizarla haciendo click  la lupa. "
+            "Haga click en  “bloc de Notas”, escriba alguna observación , luego click en el signo “+”. La observación se agrega al listado, luego haga click en “confirmar”. "
+            "Al cerrarse la ventana es necesario confirmar nuevamente haciendo click en Confirmar en la pantalla principal de la Autorización. El número (al lado del bloc de notas) se habrá incrementado.",
+        reply_markup=reply_markup
+    )
+    return FIRST         
+
+def IMG(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=BZBSuskifME&t=5s",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Identifique  la Autorización a la cual quiere adjuntar  imágenes o documentos. "
+            "Hacer click en el icono similar a una “X”  (con la descripción “Documentos”). "
+            "Aquí se  pueden ver los documentos e imágenes ya asociados. Para agregar una nueva imagen, presionar el botón con el signo “+”. "
+            "Hacer click en “Seleccionar el archivo” y elegir el que corresponde . Escribir alguna descripción, y si corresponde, completar el resto de los campos. "
+            "Al presionar “subir” podrá ver la imagen en el listado de Imágenes y Documentos relacionados a la Autorización. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
+    """"""
 
 def end(update: Update, context: CallbackContext) -> int:
     """Returns `ConversationHandler.END`, which tells the
@@ -341,6 +515,7 @@ def main() -> None:
                 CallbackQueryHandler(ERRADV, pattern='^' + str(ERRADV) + '$'),
                 CallbackQueryHandler(ANUL, pattern='^' + str(ANUL) + '$'),
                 CallbackQueryHandler(COMENT, pattern='^' + str(COMENT) + '$'),
+                CallbackQueryHandler(IMG, pattern='^' + str(IMG) + '$'),
                 CallbackQueryHandler(INT, pattern='^' + str(INT) + '$'),
                 CallbackQueryHandler(AUTINT, pattern='^' + str(AUTINT) + '$'),
                 CallbackQueryHandler(MODINT, pattern='^' + str(MODINT) + '$'),
