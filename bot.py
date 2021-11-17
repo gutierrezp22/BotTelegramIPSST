@@ -27,10 +27,10 @@ logger = logging.getLogger(__name__)
 FIRST, SECOND = range(2)
 # Callback data
 VOLVER = range(1)
-CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES, CONTACTO = range(5)
+CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES,FACT, CONTACTO = range(6)
 ACCESO, RECUPERACION, MODIFICACION,CERRAR = range(4)
 AUTYCONS,CONSDIR,CONSAUT,DISP,ERRADV,ANUL,COMENT,IMG = range(8)
-INT,AUTINT,MODINT,EMINT = range(4)
+INT,AUTINT,MODINT,EMINT,PRORR = range(5)
 
 def start(update: Update, context: CallbackContext) -> int:
     """Mensaje de inicio al ejecutar el comando `/start`."""
@@ -45,6 +45,7 @@ def start(update: Update, context: CallbackContext) -> int:
             [InlineKeyboardButton("Cuenta de Usuario", callback_data=str(CUENTA))],
             [InlineKeyboardButton("Autorizaciones en linea", callback_data=str(AUTORIZACIONES))],
             [InlineKeyboardButton("Internaciones en linea", callback_data=str(INTERNACIONES))],
+            [InlineKeyboardButton("Facturación", callback_data=str(FACT))],
             [InlineKeyboardButton("Ingresos a planes", callback_data=str(PLANES))],
             [InlineKeyboardButton("Contacto", callback_data=str(CONTACTO))],
         ]
@@ -64,6 +65,7 @@ def VOLVER (update: Update, context: CallbackContext) -> int:
            [InlineKeyboardButton("Cuenta de Usuario", callback_data=str(CUENTA))],
             [InlineKeyboardButton("Autorizaciones en linea", callback_data=str(AUTORIZACIONES))],
             [InlineKeyboardButton("Internaciones en linea", callback_data=str(INTERNACIONES))],
+            [InlineKeyboardButton("Facturación", callback_data=str(FACT))],
             [InlineKeyboardButton("Ingresos a planes", callback_data=str(PLANES))],
             [InlineKeyboardButton("Contacto", callback_data=str(CONTACTO))],
         ]
@@ -124,6 +126,7 @@ def INTERNACIONES(update: Update, context: CallbackContext) -> int:
             [InlineKeyboardButton("Autorizaciones en estado de internación", callback_data=str(AUTINT))],
             [InlineKeyboardButton("Modificación de Órdenes de Internación", callback_data=str(MODINT))],
             [InlineKeyboardButton("Emisión de una Orden de Internación", callback_data=str(EMINT))],
+            [InlineKeyboardButton("Prórrogas", callback_data=str(PRORR))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -131,6 +134,21 @@ def INTERNACIONES(update: Update, context: CallbackContext) -> int:
         text="Internaciones", reply_markup=reply_markup
     )
     return FIRST
+
+def FACT(update: Update, context: CallbackContext) -> int:
+    """Menu de cuenta de Usuario"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton("Preliquidaciones", callback_data=str(INT))],
+            [InlineKeyboardButton("Lote de Facturación", callback_data=str(AUTINT))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Facturación", reply_markup=reply_markup
+    )
+    return FIRST    
 
 def PLANES(update: Update, context: CallbackContext) -> int:
     """Menu de cuenta de Usuario"""
@@ -268,7 +286,7 @@ def CERRAR(update: Update, context: CallbackContext) -> int:
     """"Autorizaciones"""
 
 def AUTYCONS(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -294,7 +312,7 @@ def AUTYCONS(update: Update, context: CallbackContext) -> int:
     return FIRST
 
 def CONSDIR(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -321,7 +339,7 @@ def CONSDIR(update: Update, context: CallbackContext) -> int:
     return FIRST    
 
 def CONSAUT(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -346,7 +364,7 @@ def CONSAUT(update: Update, context: CallbackContext) -> int:
     return FIRST        
 
 def DISP(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -370,7 +388,7 @@ def DISP(update: Update, context: CallbackContext) -> int:
     return FIRST       
 
 def ERRADV(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -398,7 +416,7 @@ def ERRADV(update: Update, context: CallbackContext) -> int:
     return FIRST           
 
 def ANUL(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -420,7 +438,7 @@ def ANUL(update: Update, context: CallbackContext) -> int:
 
 
 def COMENT(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -443,7 +461,7 @@ def COMENT(update: Update, context: CallbackContext) -> int:
     return FIRST         
 
 def IMG(update: Update, context: CallbackContext) -> int:
-    """Menu de cuenta de Usuario"""
+    """"Autorizaciones"""
     query = update.callback_query
     query.answer()
     keyboard = [
@@ -468,7 +486,125 @@ def IMG(update: Update, context: CallbackContext) -> int:
     )
     return FIRST      
 
-    """"""
+    """Internaciones"""
+
+def INT(update: Update, context: CallbackContext) -> int:
+    """INTERNACIONES"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para realizar el alta de una Orden de Internación, ingrese a la opción Internaciones, Orden de Internación en Prestador. Luego haga click en el signo  + . "
+            "Ingrese Fecha y Hora de internación, y la cantidad estimada de días de internación. "
+            "Seleccione el tipo de internación, tipo de pensión, número de habitación y de cama. "
+            "Deberá ingresar el CUIL del afiliado y la cobertura. "
+            "Complete matricula del medico a cargo, puede usar la flecha de color celeste para buscarlo por nombre. Seleccione tipo de derivación.  "
+            "Ingrese diagnostico y haga click en el signo + . "
+            "Una vez revisada la información cargada, confirme los datos. "
+            "Consulte el estado de la orden de internación, si requiere auditoría será necesaria la autorización desde el IPSST. Revise los posibles errores de carga a la derecha y , en caso de autorizada o diferida, el número correspondiente a la internación en el extremo superior derecho. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
+def AUTINT(update: Update, context: CallbackContext) -> int:
+    """INTERNACIONES"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=85Ql5vHIL1s",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para cargar autorizaciones en internación deberá acceder a la opción Autorizaciones en Prestador. "
+            "Luego en modalidad elija  “Autorización Previa” y cliquee el signo +. "
+            "Seleccione el estado Internación e ingrese el número de la Orden de Internación. Controle los datos del afiliado. "
+            "Elija la cobertura por la que se realizarán las prestaciones. "
+            "Complete matrícula de prescriptor y fecha de prescripción. "
+            "Complete matrícula de efector, puede usar la flecha de color celeste para buscarlo por nombre. "
+            "Cargue el código de práctica, cantidad y cliquee el Signo + (realice esto tantas veces como prácticas necesite cargar). "
+            "Confirme. "
+            "Consulte el estado de la autorización, si requiere auditoria, es necesaria la autorización desde el IPSST., los posibles errores de carga a la derecha y , en caso de autorizada o diferida, el número correspondiente a la autorización en el extremo superior derecho."
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
+
+def MODINT(update: Update, context: CallbackContext) -> int:
+    """INTERNACIONES"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para modificar una orden de internación cliquee en el icono Lapiz desde el listado de órdenes, tenga en cuenta que si la orden se encuentra emitida o finalizada no es posible modificarla. "
+            "Si la orden está Autorizada sólo es posible modificar el Diagnóstico. Si desea modificar otros datos debe eliminar la orden y crearla nuevamente. "
+            "Si la orden está NO Autorizada es posible modificar toda la información contenida en la misma. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST          
+
+def EMINT(update: Update, context: CallbackContext) -> int:
+    """iNTERNACIONES"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para emitir la Orden de Internación debe hacer clic en el icono Impresora desde el listado. Luego se puede ver comprobante para ser impreso. "
+"El sistema actualiza la Fecha de Emisión por la fecha actual y la Orden de Internación cambia al estado  “Emitida”. "
+"Una vez impresa debe ser firmada por el Responsable, el Afiliado o un Familiar a cargo (la misma constituye una orden emitida por el sistema de Internaciones). "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST       
+
+def PRORR(update: Update, context: CallbackContext) -> int:
+    """iNTERNACIONES"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Cuando la internación excede los días previstos en la orden de internación. Debe usar la funcion de Prórrogas que permite extender los días de la internación. "
+            "Para prorrogar la Orden de Internación cliquee en icono Reloj. Es posible dar de alta, modificar o eliminar una prórroga. Recuerde que la prórroga solo se realiza cuando no se registró el Egreso del paciente o que si la orden fue anulada. "
+            "El icono de Alta se habilita cuando no existen prórrogas creadas o bien cuando existe una prórroga generada y la misma posee estado Autorizada o Denegada. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
+    """otracosa"""
 
 def end(update: Update, context: CallbackContext) -> int:
     """Returns `ConversationHandler.END`, which tells the
@@ -504,6 +640,7 @@ def main() -> None:
                 CallbackQueryHandler(MODIFICACION, pattern='^' + str(MODIFICACION) + '$'),
                 CallbackQueryHandler(CERRAR, pattern='^' + str(CERRAR) + '$'),
                 CallbackQueryHandler(AUTORIZACIONES, pattern='^' + str(AUTORIZACIONES) + '$'),
+                CallbackQueryHandler(FACT, pattern='^' + str(FACT) + '$'),
                 CallbackQueryHandler(VOLVER, pattern='^' + str(VOLVER) + '$'),
                 CallbackQueryHandler(INTERNACIONES, pattern='^' + str(INTERNACIONES) + '$'),
                 CallbackQueryHandler(PLANES, pattern='^' + str(PLANES) + '$'),
@@ -520,6 +657,7 @@ def main() -> None:
                 CallbackQueryHandler(AUTINT, pattern='^' + str(AUTINT) + '$'),
                 CallbackQueryHandler(MODINT, pattern='^' + str(MODINT) + '$'),
                 CallbackQueryHandler(EMINT, pattern='^' + str(EMINT) + '$'),
+                CallbackQueryHandler(PRORR, pattern='^' + str(PRORR) + '$'),
             ],
             SECOND: [
                 CallbackQueryHandler(VOLVER, pattern='^' + str(CUENTA) + '$'),
