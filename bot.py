@@ -31,6 +31,7 @@ CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES,FACT, CONTACTO = range(6)
 ACCESO, RECUPERACION, MODIFICACION,CERRAR = range(4)
 AUTYCONS,CONSDIR,CONSAUT,DISP,ERRADV,ANUL,COMENT,IMG = range(8)
 INT,AUTINT,MODINT,EMINT,PRORR = range(5)
+PRELIQ, LOTE = range(2)
 
 def start(update: Update, context: CallbackContext) -> int:
     """Mensaje de inicio al ejecutar el comando `/start`."""
@@ -140,8 +141,8 @@ def FACT(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton("Preliquidaciones", callback_data=str(INT))],
-            [InlineKeyboardButton("Lote de Facturación", callback_data=str(AUTINT))],
+            [InlineKeyboardButton("Preliquidaciones", callback_data=str(PRELIQ))],
+            [InlineKeyboardButton("Lote de Facturación", callback_data=str(LOTE))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -604,7 +605,61 @@ def PRORR(update: Update, context: CallbackContext) -> int:
     )
     return FIRST      
 
-    """otracosa"""
+    """FACTURACION"""
+
+def PRELIQ(update: Update, context: CallbackContext) -> int:
+    """FACTURACION"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=D5MQNAeDObo",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Una vez que ingreso al sistema hacer clic en preliquidaciones, elegir preliquidaciones prestador, y por último seleccionar prestadores. "
+            "Seleccionar el periodo de preliquidación. Puede utilizar las distintas opciones de búsqueda para encontrar la preliquidación deseada y luego hacer clic en buscar. En la parte inferior podrá ver un listado con datos detallados del periodo elegido, hacer clic en la lupa para poder visualizar todas las autorizaciones incluidas en el mes, en caso de querer desestimar alguna de las autorizaciones seleccionarlas y hacer clic en la opción desestimar representada con un signo -  de color naranja, la misma podrá agregarla nuevamente haciendo clic en agregar representando con signo + de color gris. "
+            "Tener en cuenta que podrá utilizar los filtros para identificar por ejemplo algún número de autorización en particular o bien de algún afiliado. "
+            "Luego de haber controlado todas las autorizaciones incluidas, hacer clic en el candado para cerrar la preliquidación. Una vez confirmado el cierre hacer clic en el icono de la impresora para imprimir la planilla. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
+def LOTE(update: Update, context: CallbackContext) -> int:
+    """FACTURACION"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=vk7tuSmGHNE",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Para trabajar con lotes de facturación, seleccione la opción Responsable Facturación - Preliquidaciones RF - Trabajar con lotes de preliquidaciones. "
+            "Para generar uno nuevo, debe presionar en Nuevo Lote. Agregue una descripción para identificar el lote, y al finalizar, click en confirmar. "
+            "Para agregar preliquidaciones a un lote, presione sobre las tildes verdes sobre las que desee incluir  y luego cliquee en el signo (+). Recuerde que solo podrá elegir preliquidaciones cerradas. "
+            "Vuelva a la pantalla inicial con la X blanca ubicada en la esquina superior derecha de la pantalla. "
+            "También puede imprimir un listado para controlar el contenido del lote. Finalmente, debe cerrar el lote presionando sobre el candado. Una vez cerrado no es posible volver a abrir, quedando disponible para el control de facturación. "
+            "Una vez cerrado el Lote, debe dirigirse al filtro Estado y elegir la opción cerrado, aparecerá nuevamente en la pantalla el Lote ya cerrado, y a continuación se debe hacer clic en el icono de la impresora, para poder imprimir el lote de la preliquidación. Confirmar que el Estado del mismo en la plantilla sea cerrado, a continuación imprimir. "
+            "Utilice los filtros de la pantalla para buscar los lotes de preliquidaciones armados previamente. "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST      
+
 
 def end(update: Update, context: CallbackContext) -> int:
     """Returns `ConversationHandler.END`, which tells the
@@ -658,6 +713,8 @@ def main() -> None:
                 CallbackQueryHandler(MODINT, pattern='^' + str(MODINT) + '$'),
                 CallbackQueryHandler(EMINT, pattern='^' + str(EMINT) + '$'),
                 CallbackQueryHandler(PRORR, pattern='^' + str(PRORR) + '$'),
+                CallbackQueryHandler(PRELIQ, pattern='^' + str(PRELIQ) + '$'),
+                CallbackQueryHandler(LOTE, pattern='^' + str(LOTE) + '$'),
             ],
             SECOND: [
                 CallbackQueryHandler(VOLVER, pattern='^' + str(CUENTA) + '$'),
