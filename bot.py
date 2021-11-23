@@ -355,7 +355,7 @@ def CONSAUT(update: Update, context: CallbackContext) -> int:
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        text= "Una vez que ingreso al sistema hacer clic en autorizaciones online, elegir autorizaciones y luego seleccionar autorizaciones en prestador. En la siguiente pantalla en modalidad elegir “Consumo de Autorización Previa” y hacer clic en el signo +. "
+        text= "Una vez que ingreso al sistema debe hacer click en autorizaciones online, elegir autorizaciones y luego seleccionar autorizaciones en prestador. En la siguiente pantalla en modalidad elegir “Consumo de Autorización Previa” y hacer clic en el signo +. "
             "En la siguiente pantalla en número de autorización ingresar en el primer cuadro número 1 para los bonos nuevos y número 2 para las órdenes de consulta celestes impresas  y a continuación el número de orden. Ingresar el número de cuil del afiliado y hacer clic en confirmar. "
             "A continuación, se abrirá una ventana donde deberá solamente incluir número de matrícula profesional efector,  código de práctica y cantidad, luego hacer clic en el signo + y hacer clic en confirmar.  Consulte el estado de la autorización, y el número correspondiente del consumo realizado en el extremo superior derecho."
 
