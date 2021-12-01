@@ -612,9 +612,7 @@ def FECHAS(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton(
-            text="Fecha limite bla.."
-            )],
+            [InlineKeyboardButton("Fecha limite bla..")],
             [InlineKeyboardButton(
             text="Contacto",
             callback_data=str(CONTACTO))],
