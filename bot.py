@@ -30,7 +30,7 @@ CUENTA, AUTORIZACIONES, INTERNACIONES, PLANES,FACT, CONTACTO = range(6)
 ACCESO, RECUPERACION, MODIFICACION,CERRAR = range(4)
 AUTYCONS,CONSDIR,CONSAUT,DISP,ERRADV,ANUL,COMENT,IMG = range(8)
 INT,AUTINT,MODINT,EMINT,PRORR = range(5)
-PRELIQ, LOTE = range(2)
+PRELIQ, LOTE, FECHAS = range(3)
 
 def start(update: Update, context: CallbackContext) -> int:
     """Mensaje de inicio al ejecutar el comando `/start`."""
@@ -140,6 +140,7 @@ def FACT(update: Update, context: CallbackContext) -> int:
     query = update.callback_query
     query.answer()
     keyboard = [
+             [InlineKeyboardButton("Fechas importantes", callback_data=str(FECHAS))],
             [InlineKeyboardButton("Preliquidaciones", callback_data=str(PRELIQ))],
             [InlineKeyboardButton("Lote de Facturación", callback_data=str(LOTE))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))],
@@ -606,6 +607,30 @@ def PRORR(update: Update, context: CallbackContext) -> int:
 
     """FACTURACION"""
 
+def FECHAS(update: Update, context: CallbackContext) -> int:
+    """FACTURACION"""
+    query = update.callback_query
+    query.answer()
+    keyboard = [
+            [InlineKeyboardButton(
+            text="Fecha para presentar preliquidacion",
+            )],
+            [InlineKeyboardButton(
+            text="Fecha para presentar otra cosa",
+            )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
+            [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
+        ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    query.edit_message_text(
+        text="Fecha para presentar algo "
+,
+        reply_markup=reply_markup
+    )
+    return FIRST          
+
 def PRELIQ(update: Update, context: CallbackContext) -> int:
     """FACTURACION"""
     query = update.callback_query
@@ -714,6 +739,7 @@ def main() -> None:
                 CallbackQueryHandler(PRORR, pattern='^' + str(PRORR) + '$'),
                 CallbackQueryHandler(PRELIQ, pattern='^' + str(PRELIQ) + '$'),
                 CallbackQueryHandler(LOTE, pattern='^' + str(LOTE) + '$'),
+                CallbackQueryHandler(FECHAS, pattern='^' + str(FECHAS) + '$'),
             ],
             SECOND: [
                 CallbackQueryHandler(VOLVER, pattern='^' + str(CUENTA) + '$'),
