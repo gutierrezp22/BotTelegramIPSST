@@ -607,7 +607,7 @@ def PRORR(update: Update, context: CallbackContext) -> int:
 
     """FACTURACION"""
 
-def PRELIQ(update: Update, context: CallbackContext) -> int:
+def FECHAS(update: Update, context: CallbackContext) -> int:
     """FACTURACION"""
     query = update.callback_query
     query.answer()
