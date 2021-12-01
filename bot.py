@@ -613,17 +613,24 @@ def FECHAS(update: Update, context: CallbackContext) -> int:
     query.answer()
     keyboard = [
             [InlineKeyboardButton(
-            text="Facturacion fecha",
+            text="Video instructivo",
+            url="https://www.youtube.com/watch?v=D5MQNAeDObo",
             )],
+            [InlineKeyboardButton(
+            text="Contacto",
+            callback_data=str(CONTACTO))],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        text="Ufecha na vez que ingreso al sistema hacer clic en preliquidaciones, elegir preliquidaciones prestador, y por último seleccionar prestadores. "     
+        text="Una vez que ingreso al sistema hacer clic en preliquidaciones, elegir preliquidaciones prestador, y por último seleccionar prestadores. "
+            "Seleccionar el periodo de preliquidación. Puede utilizar las distintas opciones de búsqueda para encontrar la preliquidación deseada y luego hacer clic en buscar. En la parte inferior podrá ver un listado con datos detallados del periodo elegido, hacer clic en la lupa para poder visualizar todas las autorizaciones incluidas en el mes, en caso de querer desestimar alguna de las autorizaciones seleccionarlas y hacer clic en la opción desestimar representada con un signo -  de color naranja, la misma podrá agregarla nuevamente haciendo clic en agregar representando con signo + de color gris. "
+            "Tener en cuenta que podrá utilizar los filtros para identificar por ejemplo algún número de autorización en particular o bien de algún afiliado. "
+            "Luego de haber controlado todas las autorizaciones incluidas, hacer clic en el candado para cerrar la preliquidación. Una vez confirmado el cierre hacer clic en el icono de la impresora para imprimir la planilla. "
 ,
         reply_markup=reply_markup
     )
-    return FIRST    
+    return FIRST      
 
 def PRELIQ(update: Update, context: CallbackContext) -> int:
     """FACTURACION"""
