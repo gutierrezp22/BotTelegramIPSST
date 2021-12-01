@@ -613,8 +613,7 @@ def FECHAS(update: Update, context: CallbackContext) -> int:
     query.answer()
     keyboard = [
             [InlineKeyboardButton(
-            text="Video instructivo",
-            url="https://www.youtube.com/watch?v=D5MQNAeDObo",
+            text="Fecha limite bla.."
             )],
             [InlineKeyboardButton(
             text="Contacto",
