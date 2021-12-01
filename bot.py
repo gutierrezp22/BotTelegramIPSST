@@ -607,25 +607,23 @@ def PRORR(update: Update, context: CallbackContext) -> int:
 
     """FACTURACION"""
 
-def FECHAS(update: Update, context: CallbackContext) -> int:
+def PRELIQ(update: Update, context: CallbackContext) -> int:
     """FACTURACION"""
     query = update.callback_query
     query.answer()
     keyboard = [
-            [InlineKeyboardButton("Fecha para presentar preliq")],
-            [InlineKeyboardButton("Fecha para presentar una cosa")],
             [InlineKeyboardButton(
-            text="Contacto",
-            callback_data=str(CONTACTO))],
+            text="Facturacion fecha",
+            )],
             [InlineKeyboardButton("Volver", callback_data=str(VOLVER))]
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        text="Fechas importantes para presentar cosas"
+        text="Ufecha na vez que ingreso al sistema hacer clic en preliquidaciones, elegir preliquidaciones prestador, y por último seleccionar prestadores. "     
 ,
         reply_markup=reply_markup
     )
-    return FIRST         
+    return FIRST    
 
 def PRELIQ(update: Update, context: CallbackContext) -> int:
     """FACTURACION"""
